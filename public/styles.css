@@ -26,6 +26,7 @@ h1 {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    
 }
 
 input {
@@ -51,4 +52,20 @@ input {
     padding: 5px 10px;
     cursor: pointer;
     border-radius: 5px;
+}
+
+#list .delete-button:hover {
+    background-color: darkred;
+}
+
+#list .delete-button:active {
+    background-color: red;
+}
+
+#list .delete-button {
+    margin-left: 10px;
+}
+
+#list-container {
+    margin-top: 20px;
 }

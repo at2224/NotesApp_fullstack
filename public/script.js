@@ -21,11 +21,16 @@ function submiteNote() {
     const newNote = document.createElement('li');
     const newDelete = document.createElement('button');
     newDelete.classList.add('delete-button');
-    newNote.textContent = note.value;
+    if (note.value.trim() === "") {
+        newNote.textContent = "Empty Note";
+    }
+    else {
+        newNote.textContent = note.value;
+    }
     newDelete.textContent = "delete";
     newNote.appendChild(newDelete);
     list.appendChild(newNote);
-    //list.appendChild(newDelete);
+    note.value = "";
 }
 
 function deleteNote(event) {
