@@ -12,3 +12,5 @@
 │
 │── .env             # Environment variables
 │── README.md        # Project documentation
+
+make sure to add .env to .gitignore btw
