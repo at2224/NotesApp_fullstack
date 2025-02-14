@@ -33,12 +33,16 @@ const pool = new Pool({
 async function createDb() {
     try {
         const client = await pool.connect();
-        console.log("Connected to postgres");
+        const query = {
+            name: 'create-notesdb-table',
+            text: ' Create table notesDB (id serial PRIMARY KEY, created_at timestamp default current_timestamp, note_text VARCHAR(100));'
+        }
+        client.query(query);
     }
     catch (err) {
         console.error(err.message);
     }
 }
 
-
+createDb();
 
