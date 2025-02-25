@@ -1,4 +1,5 @@
 import express from 'express'; // install express
+import notes from './routes/notes.js';
 
 // set up app
 const app = express();
@@ -10,6 +11,7 @@ app.get('/', (req, res) => {
     res.sendFile(__dirname + '../public/index.html');
 })
 
+app.use('/api', notes);
 
 //start server- listens for requests
 app.listen(PORT, () => {
