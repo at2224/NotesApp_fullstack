@@ -43,7 +43,6 @@ async function createDb() {
         console.error(err.message);
     }
 }
-// helper function to run queries in other file so don't have to initialize pool every time
-const query = (text, params) => pool.query(text,params);
 
-export default query;
+// export pool so dont need to reinstate it every file
+export default pool;
