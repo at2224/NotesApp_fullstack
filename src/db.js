@@ -1,12 +1,19 @@
-const {Pool, Client} = require('pg'); // client is single connection to postgres server. pool is dynamic connection with reconnect
-// enable .env
-const path = require('path');
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+import { config } from 'dotenv';
+import pkg from 'pg';
+const { Pool, Client } = pkg;
 
-// make sure we can env from the right dir
-require('dotenv').config({
+// Determine the directory name
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+// Load environment variables
+config({
     override: true,
-    path: path.join(__dirname, '../.env')
+    path: join(__dirname, '../.env')
 });
+
 // login to postgres
 const pool = new Pool({
     user: process.env.USER,
