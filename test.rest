@@ -1,10 +1,10 @@
 ###
 
-GET http://localhost:5432/
+GET http://localhost:5000/api/notes
 
 ###
 
-POST http://localhost:5432/api/
+POST http://localhost:5000/api/notes
 Content-Type: application/json
 Connection: keep-alive
 

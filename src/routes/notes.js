@@ -4,25 +4,49 @@ import pool from '../db.js';
 const router = express.Router();
 
 // save note to db
-router.post('/', async (req, res) => {
+router.post('/notes', async (req, res) => {
     try {
         const {note_text} = req.body;
-        await pool.query("INSERT INTO notesDB VALUES $1", [note_text]);
+        await pool.query("INSERT INTO notesDB (note_text) VALUES ($1)", [note_text]);
+        res.json({message: "saved note"});
     }
     catch (err) {
-        console.err(err.message);
+        console.error(err.message);
     }
 });
 
 // get note on reload
-router.post('/', async (req, res) => {
+router.get('/notes/:id?', async (req, res) => {
     try {
-        const {note_id} = req.body;
-        const result = await pool.query("SELECT * FROM notesDB where id = $1", [note_id]);
-        res.json(result.rows);
+        const note_id = req.params.id;
+        let result;
+        if (!note_id) {
+            result = await pool.query("SELECT * FROM notesDB");
+        }
+        else {
+            result = await pool.query("SELECT * FROM notesDB where id = ($1)", [note_id]);
+        }
+        // const result = await pool.query("SELECT * FROM notesDB");
+        if (!result.rows) {
+            res.json({message: "No note found"});
+        }
+        else {
+            res.json(result.rows);
+        }
     }
     catch (err) {
-        console.err(err.message);
+        console.error(err.message);
+    }
+});
+
+router.delete('/notes/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        await pool.query('DELETE FROM notesDB WHERE id = $1', [id]);
+        res.json({ message: "Note deleted" });
+    } catch (err) {
+        console.error(err.message);
+        res.status(500).send("Server Error");
     }
 });
 
